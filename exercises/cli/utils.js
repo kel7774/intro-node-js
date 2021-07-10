@@ -10,7 +10,7 @@ const contactsLocation = 'contacts.json'
  * it to a js object
  */
 const getContacts = () => {
-  
+
 }
 
 /**
@@ -27,4 +27,3 @@ module.exports = {
   getContacts,
   saveContacts
 }
-

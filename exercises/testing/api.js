@@ -5,7 +5,7 @@ const users = require('./users')
 const app = express()
 
 app.use(morgan('dev'))
-app.use(urlencoded({extended: true}))
+app.use(urlencoded({ extended: true }))
 app.use(json())
 
 app.get('/user/:id', async (req, res) => {
@@ -18,7 +18,7 @@ app.get('/user/:id', async (req, res) => {
 app.delete('/user/:id', async (req, res) => {
   const id = req.id
   await users.deleteUser(id)
-  res.status(201).send({id})
+  res.status(201).send({ id })
 })
 
 module.exports = app
