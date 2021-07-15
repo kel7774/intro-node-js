@@ -42,22 +42,19 @@ const server = http.createServer(async (req, res) => {
   const route = url.parse(req.url).pathname
   const match = router[`${route} ${method}`]
   if (!match) {
-    res.writeHead(200, { 'Content-Type': 'text/html' })
-    res.write(await findAsset('index.html'))
+    res.writeHead(404)
+    logRequest(method, route, 404)
+    res.end()
+    return
+  }
+    res.writeHead(200, { 'Content-Type': match.mime })
+    res.write(await findAsset(match.asset))
     logRequest(method, route, 200)
     res.end()
   }
-  // this is sloppy, especially with more assets, create a "router"
-  if (route === '/') {
-
-  } else {
-    // missing asset should not cause server crash
-    throw new Error('route not found')
-    res.end()
-  }
-  // most important part, send down the asset
+  server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`)
+  })
 })
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
-})
+
